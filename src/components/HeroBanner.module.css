@@ -1,0 +1,91 @@
+ /* src/components/HeroBanner.module.css */
+
+.heroBannerSection {
+    background-color: var(--alabaster-grey); 
+    padding: 60px 0;
+    margin-bottom: 30px; 
+}
+
+.heroContentContainer {
+    background: transparent !important; 
+    box-shadow: none !important; 
+    border-radius: 0 !important;
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px; 
+    max-width: 1200px; 
+    width: 95%;
+    margin: 0 auto;
+}
+
+.heroTextBox {
+    flex: 1; 
+    padding-right: 40px;
+    max-width: 50%;
+}
+
+.heroTitle {
+    font-family: 'Asap Condensed', sans-serif; 
+    font-size: 3rem;
+    line-height: 1.1;
+    margin: 0 0 20px 0;
+    color: var(--secondary-color); 
+    font-weight: 700;
+}
+
+.heroImageBox {
+    flex: 1; 
+    max-width: 50%;
+    height: 400px; 
+    overflow: hidden; 
+    border-radius: 8px; 
+}
+
+.heroResponsiveImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    object-position: center; 
+    display: block;
+}
+
+.btnCotizarHero {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--primary-color); 
+    color: white;
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: 50px; 
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.btnCotizarHero:hover {
+    background-color: var(--secondary-color); 
+}
+
+@media (max-width: 900px) {
+    .heroContentContainer {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .heroTextBox {
+        max-width: 100%;
+        padding-right: 0;
+        margin-bottom: 30px;
+    }
+    
+    .heroTitle {
+        font-size: 2.2rem;
+    }
+    
+    .heroImageBox {
+        max-width: 100%;
+        height: 300px; 
+    }
+}

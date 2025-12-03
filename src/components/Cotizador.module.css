@@ -1,0 +1,60 @@
+/* src/components/Cotizador.module.css */
+
+/* --- Estilos del Formulario --- */
+
+.formularioCotizador {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.formularioCotizador label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--secondary-color);
+}
+/* ... (resto de inputs) ... */
+
+.btnCotizar {
+  grid-column: 1 / 3;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 600; 
+  transition: background-color 0.3s;
+}
+
+/* --- Estilos de Resultado --- */
+
+.opcionesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+}
+
+.coberturaCard {
+  border: 1px solid var(--primary-color);
+  background-color: #f7fcf7;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.2s;
+}
+/* ... (resto de estilos de resultado) ... */
+
+@media (max-width: 768px) {
+  .formularioCotizador {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,506 @@
+ /* src/index.css - CÓDIGO COMPLETO FINAL Y CORREGIDO */
+
+/* ======================================================= */
+/* 1. IMPORTACIONES Y VARIABLES GLOBALES */
+/* ======================================================= */
+@import url('https://fonts.googleapis.com/css2?family=Asap+Condensed:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
+
+:root {
+  --carbon-black: #1f2421ff;
+  --stormy-teal: #216869ff;
+  --seaweed: #49a078ff;
+  --muted-teal: #9cc5a1ff;
+  --alabaster-grey: #dce1deff;
+
+  --primary-color: var(--stormy-teal);
+  --secondary-color: var(--carbon-black);
+  --bg-color: var(--alabaster-grey); 
+  --card-bg: #ffffff; 
+  --border-color: var(--muted-teal); 
+  --success-color: #49a078ff; /* Seaweed */
+  --error-color: #c44536ff; 
+}
+
+/* ======================================================= */
+/* 2. RESET Y LAYOUT BASE */
+/* ======================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Asap Condensed', sans-serif; 
+  padding-top: 70px; /* Deja espacio para el Header fijo */
+  min-height: 100vh;
+  background-color: var(--bg-color); 
+}
+
+#root {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Contenedor principal para el Cotizador */
+.container {
+  max-width: 1000px; 
+  width: 95%;
+  /* Deja un margen al hacer scroll a este elemento, igual a la altura del Header (70px) */
+  scroll-margin-top: 70px; 
+  
+  margin: 0 auto 40px auto; 
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  flex-grow: 1; 
+}
+
+.cotizador-content {
+  padding: 30px;
+}
+
+h1 {
+    color: var(--secondary-color);
+    text-align: center;
+    font-family: 'Asap Condensed', sans-serif; 
+    font-size: 1.8rem;
+    margin-top: 0; 
+    margin-bottom: 30px;
+}
+
+.loading {
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--secondary-color);
+  padding: 20px 0;
+}
+
+/* ======================================================= */
+/* 3. ESTILOS DEL HEADER */
+/* ======================================================= */
+.main-header { 
+  background-color: var(--primary-color);
+  color: white;
+  
+  position: fixed; 
+  top: 0; 
+  left: 0;
+  width: 100%; 
+  z-index: 1000; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  
+  display: flex;
+  justify-content: center; 
+  align-items: center;   
+  flex-direction: column; 
+  
+  padding: 5px 30px; 
+  height: 70px; 
+}
+
+.header-combined-title {
+    font-family: 'Audiowide', sans-serif; 
+    font-size: 1.5rem; 
+    margin: 0; 
+    font-weight: 400; 
+    letter-spacing: 2px; 
+    line-height: 1.2;
+}
+
+.main-header span {
+    font-size: 0.8rem;
+    font-weight: 400;
+    margin-top: -5px; 
+}
+
+/* ======================================================= */
+/* 4. ESTILOS DEL HERO BANNER (BORDE REDONDEADO ARREGLADO) */
+/* ======================================================= */
+.hero-banner-section {
+    background-color: var(--primary-color); 
+    min-height: 450px; 
+    
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    margin-bottom: 40px; 
+    padding-top: 70px; 
+    
+    max-width: 1200px; 
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-banner-content {
+    flex: 1; 
+    padding: 20px;
+    padding-left: 50px; 
+    text-align: left; 
+    padding-right: 50px; 
+}
+
+/* Contenedor de Texto y Lista */
+.hero-subtitle-container { 
+    font-size: 1.2rem; 
+    margin-bottom: 30px; 
+    font-weight: 400;
+}
+
+/* Título de Beneficios */
+.benefits-title {
+    display: block; 
+    font-weight: 600; 
+    margin-top: 15px;
+    margin-bottom: 5px; 
+}
+
+.benefits-list {
+    list-style: disc;
+    margin-top: 0; 
+    padding-left: 20px;
+    font-size: 1rem;
+}
+
+.benefits-list li {
+    margin-bottom: 5px;
+}
+
+.hero-title {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 3rem;
+    margin-bottom: 10px;
+    line-height: 1.1;
+}
+
+.btn-hero-action {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 15px 35px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: background-color 0.3s, transform 0.2s;
+    display: inline-block;
+    border: 2px solid var(--primary-color);
+}
+
+.btn-hero-action:hover {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+/* Contenedor de la Imagen */
+.hero-image-box {
+    flex: 0 0 450px; 
+    height: 450px; 
+    
+    /* 🔑 CAMBIO CLAVE: Quitamos las propiedades de redondeo del contenedor para que la imagen las maneje */
+    /* border-radius: 12px; */ 
+    /* overflow: hidden; */ 
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */ 
+    
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    padding-right: 50px; 
+}
+
+/* Imagen Ajustada */
+.hero-img-responsive {
+    width: 100%; 
+    height: 100%; 
+    
+    /* Usamos 'contain' para mostrar la imagen completa (sin recorte) */
+    object-fit: contain; 
+    
+    display: block;
+    /* Aplicamos el border-radius y una sombra sutil directamente a la imagen */
+    border-radius: 12px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+/* ======================================================= */
+/* 5. ESTILOS DEL COTIZADOR */
+/* ======================================================= */
+
+/* --- Estilos del Formulario --- */
+.formulario-cotizador {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.formulario-cotizador label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--secondary-color);
+}
+
+.formulario-cotizador input[type="text"],
+.formulario-cotizador input[type="number"],
+.formulario-cotizador select {
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.formulario-cotizador input:focus,
+.formulario-cotizador select:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+.radio-group {
+  grid-column: 1 / 3;
+}
+
+.radio-options {
+  display: flex;
+  gap: 20px;
+  margin-top: 5px;
+}
+
+.radio-options label {
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.btn-cotizar {
+  grid-column: 1 / 3;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 600; 
+  transition: background-color 0.3s;
+}
+
+.btn-cotizar:hover {
+  background-color: var(--secondary-color);
+}
+
+.error-message {
+    grid-column: 1 / 3;
+    background-color: var(--error-color);
+    color: white;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    font-weight: 600;
+    text-align: center;
+    border: 1px solid var(--error-color);
+}
+
+/* --- Estilos de Resultado --- */
+.resultado-container h2 {
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+.resumen {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px dashed var(--border-color);
+    border-radius: 4px;
+}
+
+.opciones-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+}
+
+.cobertura-card {
+  border: 1px solid var(--primary-color);
+  background-color: #f7fcf7;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.cobertura-card:hover {
+    transform: translateY(-5px);
+}
+
+.cobertura-card h3 {
+    color: var(--primary-color);
+    margin-top: 0;
+}
+
+.costo-final {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--success-color);
+  margin: 10px 0;
+}
+
+.descripcion {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+    min-height: 40px;
+}
+
+.btn-seleccionar {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: background-color 0.3s;
+}
+
+.btn-seleccionar:hover {
+    background-color: var(--secondary-color);
+}
+
+/* ======================================================= */
+/* 6. ESTILOS DEL FOOTER */
+/* ======================================================= */
+
+.main-footer {
+  background-color: var(--carbon-black);
+  color: var(--alabaster-grey); 
+  padding-top: 40px;
+  border-top: 5px solid var(--primary-color);
+  width: 100%; 
+  margin-top: auto; 
+}
+
+.footer-content {
+  background: transparent !important;
+  box-shadow: none !important;
+  
+  display: flex;
+  justify-content: space-around;
+  max-width: 1000px; 
+  margin: 0 auto;
+  padding: 0 15px 30px 15px;
+  flex-wrap: wrap;
+}
+
+.footer-section {
+  flex: 0 0 45%; 
+  min-width: 200px; 
+  margin-right: 20px;
+  color: var(--alabaster-grey); 
+}
+
+.footer-section h3 {
+  color: var(--primary-color);
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section a,
+.footer-section p {
+  color: var(--alabaster-grey); 
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.footer-section a:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  background-color: var(--secondary-color);
+  padding: 15px 0;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #fff; 
+}
+
+/* ======================================================= */
+/* 7. MEDIA QUERIES (RESPONSIVE) */
+/* ======================================================= */
+
+@media (max-width: 900px) {
+    /* Hero Banner Responsive */
+    .hero-banner-section {
+        flex-direction: column; 
+        min-height: auto; 
+    }
+    
+    .hero-image-box {
+        flex: 0 0 auto; 
+        height: 250px; 
+        width: 100%;
+        order: -1; 
+        padding-right: 0; 
+    }
+
+    .hero-banner-content {
+        padding: 40px 20px 20px 20px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Header Responsive */
+    .main-header {
+      height: auto;
+      padding: 10px 20px;
+    }
+
+    /* Cotizador Responsive */
+    .formulario-cotizador {
+        grid-template-columns: 1fr;
+    }
+
+    .radio-group, .btn-cotizar {
+        grid-column: 1 / 2;
+    }
+
+    /* Footer Responsive */
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .footer-section {
+        margin-right: 0;
+        margin-bottom: 25px;
+    }
+}

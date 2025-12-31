@@ -1,46 +1,53 @@
- import React, { useState } from 'react';
-import Header from './components/Header';       // Asegúrate de que la ruta sea correcta
-import HeroBanner from './components/HeroBanner'; // Asegúrate de que la ruta sea correcta
-import Formulario from './components/Formulario'; // Asegúrate de que la ruta sea correcta
-import Resultado from './components/Resultado';   // Asegúrate de que la ruta sea correcta
-import Footer from './components/Footer';     // Asegúrate de que la ruta sea correcta
+ // src/App.jsx
+import React, { useState } from 'react';
+import Header from './components/Header';
+import HeroBanner from './components/HeroBanner';
+import Formulario from './components/Formulario';
+import Resultado from './components/Resultado';
+import Historial from './components/Historial';
+import Footer from './components/Footer';
+import useCotizador from './hooks/useCotizador';
 
 const App = () => {
-    // 1. ESTADOS CENTRALES
-    // Almacena el resultado de la cotización (datos del usuario + opciones de cobertura)
-    const [resultado, setResultado] = useState(null); 
-    
-    // Almacena el estado de carga mientras se ejecuta el cálculo (simulado por el setTimeout en Formulario)
-    const [cargando, setCargando] = useState(false);
+    const { datos, error, resultado, cargando, handleChange, ejecutarCotizacion } = useCotizador();
+    const [verHistorial, setVerHistorial] = useState(false);
 
     return (
         <div id="root">
-            {/* 2. ESTRUCTURA PRINCIPAL */}
-            
             <Header />
-            <HeroBanner />
             
-            <main className="main-content">
-                <div className="container">
-                    <h1>Simulador de Seguro de Propiedad</h1>
-
-                    {/* 3. FORMULARIO */}
-                    {/* Le pasamos las funciones para que pueda actualizar el estado central al cotizar */}
-                    <Formulario 
-                        setResultado={setResultado} 
-                        setCargando={setCargando}
-                    /> 
-
-                    {/* 4. VISUALIZACIÓN DE RESULTADOS */}
+            {!verHistorial ? (
+                <>
+                    <HeroBanner />
                     
-                    {/* Si está cargando, mostramos un mensaje de carga */}
-                    {cargando && <p className="loading">Calculando opciones...</p>}
-                    
-                    {/* Si NO está cargando Y hay un resultado, mostramos el componente Resultado */}
-                    {(!cargando && resultado) && <Resultado resultado={resultado} />}
-                </div>
-            </main>
-            
+                    <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+                        <button className="btn-hero-action" onClick={() => setVerHistorial(true)}>
+                            📋 Ver Mi Historial
+                        </button>
+                    </div>
+
+                    {/* El ID debe estar aquí para que el botón del Hero funcione */}
+                    <main className="container" id="cotizador-seccion">
+                        <h1>Simulador de Seguro</h1>
+                        
+                        <Formulario 
+                            datos={datos} 
+                            handleChange={handleChange} 
+                            ejecutarCotizacion={ejecutarCotizacion} 
+                            error={error} 
+                        />
+
+                        {cargando && <p className="loading">Calculando opciones...</p>}
+                        
+                        {!cargando && resultado && (
+                            <Resultado resultado={resultado} />
+                        )}
+                    </main>
+                </>
+            ) : (
+                <Historial volver={() => setVerHistorial(false)} />
+            )}
+
             <Footer />
         </div>
     );

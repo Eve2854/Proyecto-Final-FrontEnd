@@ -1,87 +1,42 @@
-// Factores estáticos de la póliza y costos base
-export const factoresBase = {
-    COSTO_BASE_M2: 300, // Costo de referencia por metro cuadrado (puedes ajustarlo)
-    
-    // Multiplicador por Tipo de Propiedad (mayor riesgo, mayor factor)
-    FACTORES_PROPIEDAD: { 
-        casa: 1.2, 
-        departamento: 1.0, 
-        local: 1.4,
-        duplex: 1.1
-    },
+ export const calcularOpcionesCotizacion = (datos) => {
+    const { vivienda, metros, antiguedad, reclamos } = datos;
 
-    // Descuento por Antigüedad (las propiedades más antiguas pueden tener descuento por ser de construcción sólida, o recargo si son muy viejas y requieren más mantenimiento. Aquí se usa descuento)
-    FACTORES_ANTIGUEDAD: { 
-        0: 1.0,  // Nuevo o hasta 4 años
-        5: 0.95, // 5 a 9 años (5% descuento)
-        10: 0.9, // 10 a 19 años (10% descuento)
-        20: 0.8  // 20 años o más (20% descuento)
-    }, 
+    // 1. Costo Base por m2
+    const COSTO_BASE_M2 = 300;
+    let subTotal = parseFloat(metros) * COSTO_BASE_M2;
 
-    // Recargo por Historial de Reclamaciones (mayor riesgo)
-    FACTOR_RECLAMOS: { 
-        si: 1.3, // 30% de recargo si hay historial
-        no: 1.0  // Sin recargo
-    } 
-};
+    // 2. Factores de Vivienda
+    const factoresVivienda = { casa: 1.2, departamento: 1.0, duplex: 1.1, cabaña: 1.3 };
+    subTotal *= (factoresVivienda[vivienda] || 1.0);
 
-/**
- * Función principal para calcular el costo de las diferentes opciones de cobertura.
- * @param {object} datos - Datos del formulario del usuario.
- * @param {object} factores - Factores estáticos de la póliza.
- * @returns {Array} Opciones de cobertura y costo final.
- */
-export const calcularOpcionesCotizacion = (datos, factores) => {
-    const { tipoPropiedad, metrosCuadrados, antiguedad, historialReclamaciones } = datos;
+    // 3. Factor Antigüedad
+    const años = parseInt(antiguedad);
+    if (años >= 20) subTotal *= 0.8;
+    else if (años >= 10) subTotal *= 0.9;
+    else if (años >= 5) subTotal *= 0.95;
 
-    // 1. Cálculo del Costo Base (Metros Cuadrados)
-    let costoBase = parseFloat(metrosCuadrados) * factores.COSTO_BASE_M2;
+    // 4. Recargo por Reclamos
+    if (reclamos === 'si') subTotal *= 1.3;
 
-    // 2. Aplicar Factor por Tipo de Propiedad
-    let factorPropiedad = factores.FACTORES_PROPIEDAD[tipoPropiedad] || 1.0;
-    
-    // 3. Aplicar Factor por Antigüedad (selecciona el factor más aplicable)
-    let factorAntiguedad = 1.0;
-    if (antiguedad >= 20) factorAntiguedad = factores.FACTORES_ANTIGUEDAD[20];
-    else if (antiguedad >= 10) factorAntiguedad = factores.FACTORES_ANTIGUEDAD[10];
-    else if (antiguedad >= 5) factorAntiguedad = factores.FACTORES_ANTIGUEDAD[5];
-    
-    // 4. Aplicar Factor por Historial de Reclamaciones (Riesgo)
-    let factorReclamos = factores.FACTOR_RECLAMOS[historialReclamaciones] || 1.0;
-
-    // 5. Cálculo del Subtotal Ajustado
-    // Subtotal = Costo Base * Factor Propiedad * Factor Antigüedad * Factor Reclamos
-    let subTotal = costoBase * factorPropiedad * factorAntiguedad * factorReclamos;
-
-    // 6. Generación de Opciones de Cobertura con diferentes multiplicadores
-    const opciones = [
+    // 5. Retornar Opciones
+    return [
         {
             nombre: 'Básica',
-            multiplicador: 1.0, // Costo base ajustado
-            descripcion: 'Cubre únicamente daños estructurales, incendio y daños por agua. Mínima protección.',
+            multiplicador: 1.0,
+            descripcion: 'Cubre únicamente daños estructurales, incendio y daños por agua.',
+            costo: subTotal * 1.0
         },
         {
             nombre: 'Estándar',
-            multiplicador: 1.5, // 50% extra sobre el subtotal
+            multiplicador: 1.5,
             descripcion: 'Incluye la Básica más robo de contenido, daños eléctricos y cristales.',
+            costo: subTotal * 1.5
         },
         {
             nombre: 'Premium',
-            multiplicador: 2.2, // 120% extra sobre el subtotal
-            descripcion: 'Máxima cobertura: Estándar, fenómenos naturales, responsabilidad civil y asistencia en el hogar.',
-        },
+            multiplicador: 2.2,
+            descripcion: 'Máxima cobertura: Estándar, fenómenos naturales y asistencia en el hogar.',
+            costo: subTotal * 2.2
+        }
     ];
-
-    // 7. Calcular el costo final y darle formato de moneda (ARS)
-    const resultadoCotizacion = opciones.map(opcion => ({
-        ...opcion,
-        // Aplica el multiplicador y formatea el número a moneda local
-        costo: (subTotal * opcion.multiplicador).toLocaleString('es-AR', {
-            style: 'currency',
-            currency: 'ARS',
-            minimumFractionDigits: 0 // Sin decimales para montos grandes
-        }),
-    }));
-
-    return resultadoCotizacion;
 };

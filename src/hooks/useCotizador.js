@@ -1,89 +1,36 @@
- // src/hooks/useCotizador.js - CÓDIGO COMPLETO
-import { useState } from 'react';
-
-const VALORES_INICIALES = {
-    nombre: '',
-    vivienda: '',
-    metros: 0,
-    antiguedad: 0,
-    reclamos: 'no'
-};
+ import { useState } from 'react';
+import { calcularOpcionesCotizacion } from '../utils/calculadora';
 
 const useCotizador = () => {
-    
-    const [datos, setDatos] = useState(VALORES_INICIALES);
-    const [error, setError] = useState('');
+    const [datos, setDatos] = useState({
+        nombre: '', vivienda: '', metros: '', antiguedad: '', reclamos: 'no'
+    });
+    const [error, setError] = useState(null);
     const [resultado, setResultado] = useState(null);
     const [cargando, setCargando] = useState(false);
-    
+
     const handleChange = (e) => {
-        const { name, value, type, checked } = e.target;
-        
-        setDatos(prevDatos => ({
-            ...prevDatos,
-            [name]: type === 'radio' ? (checked ? value : prevDatos[name]) : value
-        }));
+        setDatos({ ...datos, [e.target.name]: e.target.value });
     };
 
-    // Función principal para cotizar el seguro. (NO usa 'e' ni 'e.preventDefault()')
-    const cotizarSeguro = () => {
-        
-        // 1. Validaciones
-        const { nombre, vivienda, metros, antiguedad } = datos;
-
-        if ([nombre, vivienda].includes('') || metros <= 0 || antiguedad < 0) {
-            setError('Todos los campos son obligatorios y deben ser válidos.');
-            setResultado(null);
+    const ejecutarCotizacion = (e) => {
+        e.preventDefault();
+        if ([datos.nombre, datos.vivienda, datos.metros].includes('')) {
+            setError('Por favor, completa los campos principales.');
             return;
         }
-
-        setError('');
+        setError(null);
         setCargando(true);
+        setResultado(null);
 
-        // 2. Base de cálculo
-        let base = 25000; 
-        
-        // 3. Multiplicador por Tipo de Vivienda
-        const multiplicadoresVivienda = {
-            'casa': 1.15,
-            'departamento': 1.05,
-            'duplex': 1.10,
-            'cabaña': 1.25
-        };
-        base *= multiplicadoresVivienda[vivienda] || 1;
-
-        // 4. Multiplicador por Metros Cuadrados
-        base += parseFloat(metros) * 50; 
-
-        // 5. Ajuste por Antigüedad
-        if (antiguedad < 5) {
-            base *= 0.98;
-        } else if (antiguedad > 20) {
-            base *= 1.05;
-        }
-
-        // 6. Ajuste por Historial de Reclamos
-        if (datos.reclamos === 'si') {
-            base *= 1.10;
-        }
-
-        const total = base;
-
-        // 7. Simulación de tiempo de carga y actualización del resultado
         setTimeout(() => {
-            setResultado(total);
+            const opciones = calcularOpcionesCotizacion(datos);
+            setResultado({ datos, opciones });
             setCargando(false);
-        }, 1500);
+        }, 1200);
     };
 
-    return {
-        datos,
-        error,
-        resultado,
-        cargando,
-        handleChange,
-        cotizarSeguro // 💡 ESTA FUNCIÓN DEBE SER EXPORTADA
-    };
+    return { datos, error, resultado, cargando, handleChange, ejecutarCotizacion };
 };
 
 export default useCotizador;

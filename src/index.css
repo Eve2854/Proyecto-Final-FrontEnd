@@ -1,4 +1,4 @@
- /* ======================================================= */
+/* ======================================================= */
 /* 1. VARIABLES Y BASE */
 /* ======================================================= */
 @import url('https://fonts.googleapis.com/css2?family=Asap+Condensed:wght@400;600;700&display=swap');
@@ -11,13 +11,22 @@
   --bg-body: #dce1de;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+* { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
+}
+
+html { 
+  scroll-behavior: smooth; 
+  overflow-x: hidden; /* Evita el scroll horizontal molesto en celulares */
+}
 
 body {
   font-family: 'Asap Condensed', sans-serif;
   background-color: var(--bg-body);
   padding-top: 70px;
+  overflow-x: hidden;
 }
 
 /* ======================================================= */
@@ -39,22 +48,34 @@ body {
 .hero-banner-section {
   background-color: var(--primary);
   min-height: 480px;
-  display: flex; justify-content: center; align-items: center;
-  gap: 50px; padding: 40px 20px;
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+  gap: 50px; 
+  padding: 40px 20px;
+  flex-wrap: wrap; /* Permite que la imagen baje en pantallas chicas */
 }
 
 .hero-title {
   font-family: 'Audiowide', sans-serif;
-  font-size: 3.2rem; color: white; margin-bottom: 25px;
+  font-size: 3.2rem; 
+  color: white; 
+  margin-bottom: 25px;
+  line-height: 1.1;
 }
 
+/* Imagen del Hero Responsiva */
+.hero-banner-section img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
 
 .hero-subtitle-container, .benefits-list, .benefits-list li {
   color: #000000 !important; 
   font-weight: 700 !important;
 }
 
-/* BOTÓN COMENZAR A COTIZAR */
 .btn-cotizar-hero {
   display: inline-block;
   background-color: white;
@@ -68,76 +89,100 @@ body {
   transition: 0.3s;
 }
 
-.btn-cotizar-hero:hover {
-  background-color: transparent;
-  color: white !important;
-}
-
 /* ======================================================= */
 /* 3. SIMULADOR Y RESULTADOS */
 /* ======================================================= */
 .container {
-  max-width: 1000px; width: 92%; margin: 50px auto;
-  background: white; border-radius: 15px;
+  max-width: 1000px; 
+  width: 92%; 
+  margin: 50px auto;
+  background: white; 
+  border-radius: 15px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-  overflow: hidden; padding: 40px;
+  padding: 40px 20px; /* Reduje padding lateral para cel */
 }
 
-main.container h1 { text-align: center; margin-bottom: 30px; color: var(--secondary); }
+main.container h1 { 
+  text-align: center; 
+  margin-bottom: 30px; 
+  color: var(--secondary); 
+  font-size: 1.8rem;
+}
 
-.formulario-cotizador { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+.formulario-cotizador { 
+  display: grid; 
+  grid-template-columns: 1fr 1fr; 
+  gap: 25px; 
+}
 
 .input-group { display: flex; flex-direction: column; }
 .input-group label { font-weight: 700; margin-bottom: 8px; color: var(--primary); }
-.input-group input, .input-group select { padding: 12px; border: 1px solid #ccc; border-radius: 6px; }
+.input-group input, .input-group select { 
+  padding: 12px; 
+  border: 1px solid #ccc; 
+  border-radius: 6px;
+  width: 100%; /* Asegura que ocupen todo el ancho */
+}
 
 .btn-cotizar {
-  grid-column: 1 / 3; background-color: var(--primary); color: white;
-  padding: 16px; border: none; border-radius: 8px; font-size: 1.2rem; font-weight: 700; cursor: pointer;
+  grid-column: 1 / 3; 
+  background-color: var(--primary); 
+  color: white;
+  padding: 16px; 
+  border: none; 
+  border-radius: 8px; 
+  font-size: 1.2rem; 
+  font-weight: 700; 
+  cursor: pointer;
 }
 
 .resultado-container { margin-top: 40px; text-align: center; }
 
 .opciones-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px; margin-top: 20px; justify-content: center;
+  display: grid; 
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px; 
+  margin-top: 20px; 
+  justify-content: center;
 }
 
 .cobertura-card {
-  background: #fdfdfd; border: 2px solid #eee; padding: 25px;
-  border-radius: 12px; display: flex; flex-direction: column; align-items: center;
+  background: #fdfdfd; 
+  border: 2px solid #eee; 
+  padding: 25px;
+  border-radius: 12px; 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center;
 }
 
-.costo-final { font-size: 2.2rem; font-weight: 800; color: var(--accent); margin: 15px 0; }
-
-/* BOTÓN GUARDAR MODERNO */
 .btn-guardar {
-  display: block; margin: 30px auto 0;
+  display: block; 
+  margin: 30px auto 0;
   background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
-  color: white !important; padding: 14px 35px; border: none;
-  border-radius: 50px; font-size: 1.1rem; font-weight: 700;
-  text-transform: uppercase; cursor: pointer; transition: 0.3s;
+  color: white !important; 
+  padding: 14px 35px; 
+  border: none;
+  border-radius: 50px; 
+  font-size: 1.1rem; 
+  font-weight: 700;
+  text-transform: uppercase; 
+  cursor: pointer; 
+  transition: 0.3s;
 }
 
 /* ======================================================= */
 /* 4. HISTORIAL Y TOAST */
 /* ======================================================= */
 .resumen {
-  background: #f8fcfb; border-left: 5px solid var(--accent);
-  padding: 20px; border-radius: 8px; margin-bottom: 15px;
+  background: #f8fcfb; 
+  border-left: 5px solid var(--accent);
+  padding: 20px; 
+  border-radius: 8px; 
+  margin-bottom: 15px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  word-wrap: break-word; /* Para que el texto largo no rompa el cel */
 }
-
-.custom-toast {
-  position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
-  background: var(--secondary); color: white; padding: 15px 35px;
-  border-radius: 50px; box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-  display: flex; align-items: center; gap: 12px; z-index: 9999;
-  font-weight: 600; animation: slideUp 0.4s ease-out, fadeOut 0.4s ease-in 2.6s forwards;
-}
-
-@keyframes slideUp { from { bottom: -60px; opacity: 0; } to { bottom: 30px; opacity: 1; } }
-@keyframes fadeOut { to { opacity: 0; transform: translateX(-50%) translateY(20px); } }
 
 /* ======================================================= */
 /* 5. FOOTER */
@@ -145,39 +190,18 @@ main.container h1 { text-align: center; margin-bottom: 30px; color: var(--second
 .main-footer {
   background-color: #f2f2f2 !important; 
   color: #000000 !important;
-  padding: 60px 20px 30px;
+  padding: 40px 20px;
   border-top: 6px solid var(--accent);
   margin-top: 60px;
 }
 
 .footer-content {
   display: flex; 
-  justify-content: space-around; /* 🔑 Reparte el contenido en el ancho */
+  justify-content: space-around; 
   align-items: flex-start;
   max-width: 1100px; 
   margin: 0 auto; 
   gap: 40px;
-  text-align: left; /* Alineación interna del texto */
-}
-
-.footer-section {
-  flex: 1;
-  min-width: 200px;
-}
-
-.footer-section h3 { 
-  color: var(--primary) !important; 
-  margin-bottom: 20px; 
-  font-size: 1.2rem;
-}
-
-.footer-section p, .footer-section a, .footer-section span {
-  color: #000000 !important; 
-  text-decoration: none; 
-  font-size: 0.95rem;
-  line-height: 1.6;
-  display: block;
-  margin-bottom: 8px;
 }
 
 .footer-bottom {
@@ -189,13 +213,47 @@ main.container h1 { text-align: center; margin-bottom: 30px; color: var(--second
   font-size: 0.85rem;
 }
 
-/* RESPONSIVE */
+/* ======================================================= */
+/* 6. RESPONSIVE (CELULARES) */
+/* ======================================================= */
 @media (max-width: 850px) {
-  .hero-banner-section { flex-direction: column; text-align: center; }
-  .formulario-cotizador { grid-template-columns: 1fr; }
+  .hero-banner-section { 
+    flex-direction: column; 
+    text-align: center; 
+    padding: 20px;
+  }
+
+  .hero-title {
+    font-size: 2.2rem; /* Más chico para que entre en el cel */
+  }
+
+  .formulario-cotizador { 
+    grid-template-columns: 1fr; /* Una sola columna en cel */
+  }
+
+  .btn-cotizar {
+    grid-column: 1 / 2;
+  }
+
+  .container {
+    width: 95%;
+    padding: 25px 15px;
+  }
+
   .footer-content { 
     flex-direction: column; 
     text-align: center; 
     align-items: center; 
+    gap: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-combined-title {
+    font-size: 1.1rem; /* Título de barra superior más chico */
+  }
+  
+  .hero-title {
+    font-size: 1.8rem;
   }
 }

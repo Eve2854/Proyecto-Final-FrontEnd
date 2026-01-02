@@ -10,9 +10,6 @@ const HeroBanner = () => {
                 <div className={styles.heroTextBox}>
                     <h1 className={styles.heroTitle}>SEGURIDAD A TU MEDIDA</h1>
                     
-                    {/* Usamos un estilo en línea para asegurar el color gris 
-                      o puedes usar la variable de tu CSS 
-                    */}
                     <div className="hero-subtitle-container" style={{ color: '#b0b0b0', marginBottom: '20px' }}>
                         <span className="benefits-title" style={{ color: '#dce1de' }}>
                             Protección integral para tu hogar:

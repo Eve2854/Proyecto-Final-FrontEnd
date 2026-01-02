@@ -20,16 +20,47 @@ const App = () => {
                 <>
                     <HeroBanner />
                     
-                    <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-                        <button className="btn-hero-action" onClick={() => setVerHistorial(true)}>
-                            📋 Ver Mi Historial
+                    {/* SECCIÓN DEL BOTÓN */}
+                    <div style={{ 
+                        textAlign: 'center', 
+                        margin: '30px 0', 
+                        padding: '0 20px' 
+                    }}>
+                        <button 
+                            className="btn-historial-estilizado" 
+                            onClick={() => setVerHistorial(true)}
+                            style={{
+                                backgroundColor: 'transparent',
+                                color: 'var(--primary)',
+                                border: '2px solid var(--primary)',
+                                padding: '12px 25px',
+                                borderRadius: '30px',
+                                fontSize: '1rem',
+                                fontWeight: '600',
+                                cursor: 'pointer',
+                                transition: 'all 0.3s ease',
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '10px',
+                                textTransform: 'uppercase',
+                                letterSpacing: '1px'
+                            }}
+                            onMouseOver={(e) => {
+                                e.currentTarget.style.backgroundColor = 'var(--primary)';
+                                e.currentTarget.style.color = 'white';
+                                e.currentTarget.style.boxShadow = '0 4px 15px rgba(0,0,0,0.1)';
+                            }}
+                            onMouseOut={(e) => {
+                                e.currentTarget.style.backgroundColor = 'transparent';
+                                e.currentTarget.style.color = 'var(--primary)';
+                                e.currentTarget.style.boxShadow = 'none';
+                            }}
+                        >
+                            <span style={{ fontSize: '1.2rem' }}>📋</span> Ver Mi Historial
                         </button>
                     </div>
 
-                    {/* El ID debe estar aquí para que el botón del Hero funcione */}
                     <main className="container" id="cotizador-seccion">
-                        <h1>Simulador de Seguro</h1>
-                        
                         <Formulario 
                             datos={datos} 
                             handleChange={handleChange} 

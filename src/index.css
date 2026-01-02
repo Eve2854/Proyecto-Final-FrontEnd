@@ -21,7 +21,7 @@ body {
 }
 
 /* ======================================================= */
-/* 2. HEADER Y HERO (ESTILO RESTAURADO) */
+/* 2. HEADER Y HERO */
 /* ======================================================= */
 .main-header {
   background-color: var(--primary);
@@ -48,13 +48,13 @@ body {
   font-size: 3.2rem; color: white; margin-bottom: 25px;
 }
 
-/* Texto en Negro solicitado anteriormente */
+
 .hero-subtitle-container, .benefits-list, .benefits-list li {
   color: #000000 !important; 
   font-weight: 700 !important;
 }
 
-/* BOTÓN COMENZAR A COTIZAR (ESTILO RECUPERADO) */
+/* BOTÓN COMENZAR A COTIZAR */
 .btn-cotizar-hero {
   display: inline-block;
   background-color: white;
@@ -140,7 +140,7 @@ main.container h1 { text-align: center; margin-bottom: 30px; color: var(--second
 @keyframes fadeOut { to { opacity: 0; transform: translateX(-50%) translateY(20px); } }
 
 /* ======================================================= */
-/* 5. FOOTER (CORREGIDO Y CENTRADO CON TEXTO NEGRO) */
+/* 5. FOOTER */
 /* ======================================================= */
 .main-footer {
   background-color: #f2f2f2 !important; 

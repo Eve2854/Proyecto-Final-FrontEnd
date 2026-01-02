@@ -1,29 +1,44 @@
- // src/components/Footer.jsx - CÓDIGO FINAL CLÁSICO
+ // src/components/Footer.jsx
 import React from 'react';
-// 🚫 IMPORTACIÓN ELIMINADA: import styles from './Footer.module.css';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    // Usamos la clase clásica
     <footer className="main-footer">
       
-      {/* Usamos las clases clásicas: "container" es global, "footer-content" es nueva */}
       <div className={`container footer-content`}>
         
         <div className="footer-section"> 
-          <h3>Contacto 📞</h3>
-          <p>Email: <a href="mailto:contacto@seguroshogar.com">contacto@seguroshogar.com</a></p>
-          <p>Teléfono: +54 9 11 1234-5678</p>
-          <p>Dirección: Av. Principal 123, Buenos Aires, AR</p>
+          <h3 style={{ marginBottom: '15px', color: 'var(--primary)' }}>Contacto 📞</h3>
+          
+          {/* Usamos un contenedor con display grid para alinear etiquetas y datos */}
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'auto 1fr', 
+            gap: '8px 12px', 
+            alignItems: 'center' 
+          }}>
+            
+            <span style={{ fontWeight: 'bold' }}>Email:</span>
+            <a href="mailto:contacto@seguroshogar.com" style={{ textDecoration: 'none', color: 'inherit' }}>
+              contacto@seguroshogar.com
+            </a>
+
+            <span style={{ fontWeight: 'bold' }}>Teléfono:</span>
+            <span>+54 9 11 1234-5678</span>
+
+            <span style={{ fontWeight: 'bold' }}>Dirección:</span>
+            <span>Av. Principal 123, Buenos Aires, AR</span>
+            
+          </div>
         </div>
 
         <div className="footer-section">
           <h3>Legal</h3>
-          <ul>
-            <li><a href="#privacidad">Política de Privacidad</a></li>
-            <li><a href="#terminos">Términos de Servicio</a></li>
+          <ul style={{ listStyle: 'none', padding: 0 }}>
+            <li style={{ marginBottom: '8px' }}><a href="#privacidad">Política de Privacidad</a></li>
+            <li style={{ marginBottom: '8px' }}><a href="#terminos">Términos de Servicio</a></li>
             <li><a href="#avisos">Avisos Legales</a></li>
           </ul>
         </div>
